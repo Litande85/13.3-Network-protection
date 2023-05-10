@@ -151,6 +151,7 @@ makhota@nodeone:~$ sudo tail /var/log/suricata/suricata.log
 10/5/2023 -- 22:17:04 - <Info> - stats output device (regular) initialized: stats.log
 makhota@nodeone:~$ sudo tail -f /var/log/suricata/fast.log
 05/10/2023-22:18:07.674725  [**] [1:2100366:8] GPL ICMP_INFO PING *NIX [**] [Classification: Misc activity] [Priority: 3] {ICMP} 192.168.56.108:8 -> 192.168.56.110:0
+
 05/10/2023-22:19:29.083667  [**] [1:2010937:3] ET SCAN Suspicious inbound to mySQL port 3306 [**] [Classification: Potentially Bad Traffic] [Priority: 2] {TCP} 192.168.56.108:41852 -> 192.168.56.110:3306
 05/10/2023-22:19:29.109060  [**] [1:2002911:6] ET SCAN Potential VNC Scan 5900-5920 [**] [Classification: Attempted 
 Information Leak] [Priority: 2] {TCP} 192.168.56.108:45902 -> 192.168.56.110:5901
@@ -217,11 +218,13 @@ Information Leak] [Priority: 2] {TCP} 192.168.56.108:58436 -> 192.168.56.110:580
 05/10/2023-22:21:16.990447  [**] [1:2024364:4] ET SCAN Possible Nmap User-Agent Observed [**] [Classification: Web Application Attack] [Priority: 1] {TCP} 192.168.56.108:42020 -> 192.168.56.110:80
 ```
 
-Трафик при сканировании `nmap -sA` `suricata` не посчитала подозрительным, присвоив ему приоритет 3.
+Трафик от команды `ping` `suricata` не посчитала подозрительным, присвоив ему приоритет 3.
+
+Трафик при сканировании `nmap -sA` `suricata` не зафиксировала, потому, что в правилах по умолчанию нет этой атаки.
 
 Трафик при сканировании `nmap -sS` `suricata`  посчитала подозрительным, потенициально вредоносным, присвоив ему приоритет 2.
 
-Трафик при сканировании `nmap -sT` `suricata` не посчитала подозрительным, присвоив ему приоритет 3.
+Трафик при сканировании `nmap -sT` `suricata` посчитала подозрительным, потенициально вредоносным, присвоив ему приоритет 2.
 
 Трафик при сканировании `nmap -sV` `suricata`   классифицировала как web-атаку, посчитала вредоносным, присвоив ему приоритет 1.
 
