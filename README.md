@@ -58,7 +58,7 @@ sudo systemctl restart suricata
 sudo tail /var/log/suricata/suricata.log
 sudo tail /var/log/suricata/stats.log
 #запуск
-sudo suricata -c /etc/suricata/suricata.yaml -i eth0
+sudo suricata -c /etc/suricata/suricata.yaml -s signatures.rules -i enp0s9
 #файл логов с предупреждениями
 sudo tail -f /var/log/suricata/fast.log
 ```
@@ -222,7 +222,7 @@ Information Leak] [Priority: 2] {TCP} 192.168.56.108:58436 -> 192.168.56.110:580
 Трафик при сканировании `nmap -sT` `suricata` не посчитала подозрительным, присвоив ему приоритет 3.
 Трафик при сканировании `nmap -sV` `suricata`   классифицировала как web-атаку, посчитала вредоносным, присвоив ему приоритет 1.
 
-`fail2ban` не зафиксировал трафик при сканировании `nmap`.
+`fail2ban` не зафиксировал трафик при сканировании `nmap`, изменений в логах не было.
 
 ---
 
